@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的结婚纪念</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff0f5 0%, #f8f0ff 100%);
+            color: #5d3a7d;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.1);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 182, 193, 0.2);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #d81b60;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff6b8b, #8a2be2, transparent);
+            bottom: -5px;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .couple-names {
+            font-size: 1.8rem;
+            color: #c2185b;
+            margin: 15px 0;
+            font-weight: 500;
+            letter-spacing: 3px;
+        }
+        
+        .wedding-date {
+            font-size: 1.4rem;
+            color: #e91e63;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        /* 计数器样式 */
+        .counter {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(216, 27, 96, 0.1);
+            max-width: 700px;
+            margin: 20px auto;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .counter h2 {
+            color: #c2185b;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        
+        .days-counter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .days-box {
+            background: linear-gradient(135deg, #ffb6c1 0%, #ff8fab 100%);
+            color: white;
+            width: 110px;
+            height: 110px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(244, 143, 177, 0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .days-box:hover {
+            transform: translateY(-3px);
+        }
+        
+        .days-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            z-index: 1;
+        }
+        
+        .days-label {
+            font-size: 1rem;
+            margin-top: 5px;
+            z-index: 1;
+        }
+        
+        /* 幻灯片样式 */
+        .slideshow-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 40px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.15);
+        }
+        
+        .slide {
+            display: none;
+            width: 100%;
+            height: 500px;
+            position: relative;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        .slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 幻灯片控制按钮 */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(216, 27, 96, 0.5);
+        }
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(216, 27, 96, 0.8);
+        }
+        
+        /* 幻灯片指示器 */
+        .dots {
+            text-align: center;
+            padding: 15px 0;
+        }
+        
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        
+        .dot.active, .dot:hover {
+            background-color: #d81b60;
+        }
+        
+        /* 音乐播放器样式 */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            z-index: 100;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+        
+        .music-btn {
+            background: linear-gradient(135deg, #ff6b8b, #8a2be2);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(138, 43, 226, 0.3);
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background-color: rgba(248, 187, 217, 0.7);
+            color: #880e4f;
+            border-radius: 20px 20px 0 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .heart {
+            color: #d81b60;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .couple-names {
+                font-size: 1.5rem;
+            }
+            
+            .days-box {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .days-number {
+                font-size: 2rem;
+            }
+            
+            .days-label {
+                font-size: 0.9rem;
+            }
+            
+            .slide {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .days-box {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .days-number {
+                font-size: 1.8rem;
+            }
+            
+            .days-label {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 音乐播放器 -->
+    <div class="music-player">
+        <button id="musicBtn" class="music-btn">
+            <i class="fas fa-play"></i>
+        </button>
+    </div>
+    
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 头部区域 -->
+        <header>
+            <h1>我们的爱情纪念</h1>
+            <div class="couple-names">新郎 & 新娘</div>
+            <div class="wedding-date">始于 2025年11月30日</div>
+            
+            <!-- 结婚天数计数器 -->
+            <div class="counter">
+                <h2>我们结婚已经</h2>
+                <div class="days-counter">
+                    <div class="days-box">
+                        <div id="days" class="days-number">0</div>
+                        <div class="days-label">天</div>
+                    </div>
+                    <div class="days-box">
+                        <div id="hours" class="days-number">00</div>
+                        <div class="days-label">小时</div>
+                    </div>
+                    <div class="days-box">
+                        <div id="minutes" class="days-number">00</div>
+                        <div class="days-label">分钟</div>
+                    </div>
+                    <div class="days-box">
+                        <div id="seconds" class="days-number">00</div>
+                        <div class="days-label">秒钟</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- 幻灯片展示区域 -->
+        <div class="slideshow-container">
+            <!-- 幻灯片1 -->
+            <div class="slide active">
+                <img src="images/photo1.jpg" class="slide-img" alt="婚礼照片1">
+            </div>
+            
+            <!-- 幻灯片2 -->
+            <div class="slide">
+                <img src="images/photo2.jpg" class="slide-img" alt="婚礼照片2">
+            </div>
+            
+            <!-- 幻灯片3 -->
+            <div class="slide">
+                <img src="images/photo3.jpg" class="slide-img" alt="婚礼照片3">
+            </div>
+            
+            <!-- 幻灯片4 -->
+            <div class="slide">
+                <img src="images/photo4.jpg" class="slide-img" alt="婚礼照片4">
+            </div>
+            
+            <!-- 幻灯片5 -->
+            <div class="slide">
+                <img src="images/photo5.jpg" class="slide-img" alt="婚礼照片5">
+            </div>
+            
+            <!-- 幻灯片6 -->
+            <div class="slide">
+                <img src="images/photo6.jpg" class="slide-img" alt="婚礼照片6">
+            </div>
+            
+            <!-- 幻灯片7 -->
+            <div class="slide">
+                <img src="images/photo7.jpg" class="slide-img" alt="婚礼照片7">
+            </div>
+            
+            <!-- 幻灯片8 -->
+            <div class="slide">
+                <img src="images/photo8.jpg" class="slide-img" alt="婚礼照片8">
+            </div>
+            
+            <!-- 幻灯片9 -->
+            <div class="slide">
+                <img src="images/photo9.jpg" class="slide-img" alt="婚礼照片9">
+            </div>
+            
+            <!-- 导航按钮 -->
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        
+        <!-- 幻灯片指示器 -->
+        <div class="dots">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
+            <span class="dot" onclick="currentSlide(6)"></span>
+            <span class="dot" onclick="currentSlide(7)"></span>
+            <span class="dot" onclick="currentSlide(8)"></span>
+            <span class="dot" onclick="currentSlide(9)"></span>
+        </div>
+        
+        <!-- 页脚 -->
+        <footer>
+            <p>用心记录我们在一起的每一天 <span class="heart">❤</span></p>
+            <p>© 2025-2026 我们的爱情纪念 | 结婚纪念日: 2025年11月30日</p>
+        </footer>
+    </div>
+
+    <!-- 背景音乐 -->
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-day-583.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 结婚日期设置
+        const weddingDate = new Date('2025-11-30T00:00:00');
+        
+        // 更新结婚天数计数器
+        function updateCounter() {
+            const now = new Date();
+            const diffTime = now - weddingDate;
+            
+            // 计算天数、小时、分钟、秒钟
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+            const diffSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
+            
+            // 更新显示
+            document.getElementById('days').textContent = diffDays;
+            document.getElementById('hours').textContent = diffHours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = diffMinutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = diffSeconds.toString().padStart(2, '0');
+        }
+        
+        // 初始调用
+        updateCounter();
+        
+        // 每秒更新
+        setInterval(updateCounter, 1000);
+        
+        // 音乐播放控制
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = musicBtn.querySelector('i');
+        let isPlaying = false;
+        
+        // 设置音乐音量
+        bgMusic.volume = 0.3;
+        
+        // 音乐播放/暂停控制
+        musicBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicIcon.className = 'fas fa-play';
+                musicBtn.style.background = 'linear-gradient(135deg, #ff6b8b, #8a2be2)';
+            } else {
+                bgMusic.play().then(() => {
+                    musicIcon.className = 'fas fa-pause';
+                    musicBtn.style.background = 'linear-gradient(135deg, #c2185b, #6a1b9a)';
+                }).catch(error => {
+                    console.log("音频播放失败:", error);
+                    alert("音乐加载失败，请检查网络连接或点击允许自动播放");
+                });
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        // 幻灯片功能
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        // 下一张/上一张控制
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+        
+        // 当前幻灯片控制
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            
+            slides[slideIndex-1].classList.add("active");
+            dots[slideIndex-1].classList.add("active");
+        }
+        
+        // 自动轮播
+        setInterval(() => {
+            plusSlides(1);
+        }, 5000);
+        
+        // 页面加载后尝试播放音乐
+        window.addEventListener('load', function() {
+            // 延迟尝试播放音乐，避免与其他资源加载冲突
+            setTimeout(() => {
+                if (!isPlaying) {
+                    bgMusic.play().then(() => {
+                        isPlaying = true;
+                        musicIcon.className = 'fas fa-pause';
+                        musicBtn.style.background = 'linear-gradient(135deg, #c2185b, #6a1b9a)';
+                    }).catch(e => {
+                        console.log("自动播放被阻止，需要用户点击");
+                    });
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
