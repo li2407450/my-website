@@ -299,6 +299,18 @@
             .slide {
                 height: 350px;
             }
+            
+            .music-player {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 15px;
+            }
+            
+            .music-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -321,7 +333,7 @@
     <!-- 音乐播放器 -->
     <div class="music-player">
         <button id="musicBtn" class="music-btn">
-            <i class="fas fa-play"></i>
+            <i class="fas fa-pause"></i>
         </button>
     </div>
     
@@ -361,47 +373,47 @@
         <div class="slideshow-container">
             <!-- 幻灯片1 -->
             <div class="slide active">
-                <img src="images/photo1.jpg" class="slide-img" alt="婚礼照片1">
+                
             </div>
             
             <!-- 幻灯片2 -->
             <div class="slide">
-                <img src="images/photo2.jpg" class="slide-img" alt="婚礼照片2">
+                
             </div>
             
             <!-- 幻灯片3 -->
             <div class="slide">
-                <img src="images/photo3.jpg" class="slide-img" alt="婚礼照片3">
+                
             </div>
             
             <!-- 幻灯片4 -->
             <div class="slide">
-                <img src="images/photo4.jpg" class="slide-img" alt="婚礼照片4">
+                
             </div>
             
             <!-- 幻灯片5 -->
             <div class="slide">
-                <img src="images/photo5.jpg" class="slide-img" alt="婚礼照片5">
+                
             </div>
             
             <!-- 幻灯片6 -->
             <div class="slide">
-                <img src="images/photo6.jpg" class="slide-img" alt="婚礼照片6">
+                
             </div>
             
             <!-- 幻灯片7 -->
             <div class="slide">
-                <img src="images/photo7.jpg" class="slide-img" alt="婚礼照片7">
+                
             </div>
             
             <!-- 幻灯片8 -->
             <div class="slide">
-                <img src="images/photo8.jpg" class="slide-img" alt="婚礼照片8">
+                
             </div>
             
             <!-- 幻灯片9 -->
             <div class="slide">
-                <img src="images/photo9.jpg" class="slide-img" alt="婚礼照片9">
+                
             </div>
             
             <!-- 导航按钮 -->
@@ -429,9 +441,9 @@
         </footer>
     </div>
 
-    <!-- 背景音乐 -->
+    <!-- 背景音乐（已替换为新地址） -->
     <audio id="bgMusic" loop>
-        <source src="http://music.163.com/song/media/outer/url?id=2721732616.mp3" type="audio/mpeg">
+        <source src="http://music.163.com/song/media/outer/url?id=2721732616.mp3" type="audio/mp4">
     </audio>
 
     <script>
@@ -466,7 +478,7 @@
         const bgMusic = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicBtn');
         const musicIcon = musicBtn.querySelector('i');
-        let isPlaying = false;
+        let isPlaying = true; // 初始状态设为播放中
         
         // 设置音乐音量
         bgMusic.volume = 0.3;
@@ -528,20 +540,27 @@
             plusSlides(1);
         }, 5000);
         
-        // 页面加载后尝试播放音乐
+        // 页面加载后自动播放音乐
         window.addEventListener('load', function() {
             // 延迟尝试播放音乐，避免与其他资源加载冲突
             setTimeout(() => {
-                if (!isPlaying) {
-                    bgMusic.play().then(() => {
-                        isPlaying = true;
-                        musicIcon.className = 'fas fa-pause';
-                        musicBtn.style.background = 'linear-gradient(135deg, #c2185b, #6a1b9a)';
-                    }).catch(e => {
-                        console.log("自动播放被阻止，需要用户点击");
-                    });
-                }
-            }, 2000);
+                bgMusic.play().then(() => {
+                    // 播放成功，保持播放状态
+                    isPlaying = true;
+                    musicIcon.className = 'fas fa-pause';
+                    musicBtn.style.background = 'linear-gradient(135deg, #c2185b, #6a1b9a)';
+                }).catch(e => {
+                    console.log("自动播放被阻止，需要用户点击");
+                    // 自动播放失败，重置状态
+                    isPlaying = false;
+                    musicIcon.className = 'fas fa-play';
+                    musicBtn.style.background = 'linear-gradient(135deg, #ff6b8b, #8a2be2)';
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
         });
     </script>
 </body>
