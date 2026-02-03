@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>光影之间 · 遇见你</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --纯白: #fff0f3;
+            --柔粉: #ffd6e0; /* 更粉嫩的背景色 */
+            --暖粉: #ffb3c6; /* 温暖的粉色 */
+            --深粉: #ff8fab; /* 较深的粉色 */
+            --深黑: #5a3e4c; /* 调整为更柔和的深色 */
+            --玫瑰金: #ffacc7; /* 更粉嫩的玫瑰金 */
+            --新粉色: #ffe5ec; /* 更粉嫩的背景色 */
+            --鼠尾草绿: #c8e6c9; /* 柔和的鼠尾草绿 */
+            --雾蓝: #bbdefb; /* 柔和的雾蓝色 */
+            --奶油色: #fff9fb; /* 更粉嫩的奶油色 */
+            --浅紫: #e1bee7; /* 添加浅紫色增加温馨感 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: var(--新粉色);
+            color: var(--深黑);
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(255, 172, 199, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(187, 222, 251, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(200, 230, 201, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation:轻柔浮动 20s ease-in-out infinite;
+        }
+
+        @keyframes 轻柔浮动 {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+        
+        .容器 {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        /* 极简头部 */
+        .简约首页 {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--新粉色) 0%, var(--奶油色) 100%);
+            padding: 80px 0;
+            border-radius: 0 0 40px 40px; /* 添加圆角 */
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3); /* 添加粉色阴影 */
+        }
+
+        .标题 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 300;
+            color: var(--深黑);
+            margin-bottom: 40px;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        .标题::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--玫瑰金), transparent);
+        }
+
+        .恋人姓名 {
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            color: var(--深粉);
+            margin: 60px 0;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .恋人姓名::before,
+        .恋人姓名::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 1px;
+            background: var(--雾蓝);
+            transition: all 0.6s ease;
+        }
+
+        .恋人姓名::before { 
+            left: -60px; 
+            transform: translateY(-50%) rotate(-45deg);
+        }
+        .恋人姓名::after { 
+            right: -60px; 
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .优雅日期 {
+            font-size: 1.1rem;
+            color: var(--深粉);
+            margin-top: 50px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            background: rgba(255, 182, 193, 0.2);
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.2); /* 添加阴影 */
+        }
+        
+        /* 现代计数器 - 玻璃拟态 */
+        .现代计数 {
+            padding: 120px 0;
+            background: var(--柔粉);
+            text-align: center;
+            position: relative;
+            border-radius: 40px; /* 添加圆角 */
+            margin: 60px 0;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3); /* 添加阴影 */
+        }
+
+        .计数标题 {
+            font-size: clamp(1.8rem, 3vw, 3rem);
+            font-weight: 300;
+            margin-bottom: 80px;
+            color: var(--深黑);
+            letter-spacing: 0.05em;
+        }
+
+        .玻璃卡片组 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .玻璃卡片 {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 25px; /* 增加圆角 */
+            padding: 50px 30px;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.3); /* 更粉嫩的阴影 */
+        }
+
+        .玻璃卡片::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 172, 199, 0.2), rgba(187, 222, 251, 0.2));
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .玻璃卡片:hover::before {
+            opacity: 1;
+        }
+
+        .玻璃卡片:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(255, 182, 193, 0.4); /* 悬停时更明显的阴影 */
+        }
+
+        .玻璃数字 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 200;
+            color: var(--深黑);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .玻璃标签 {
+            font-size: 0.95rem;
+            color: var(--深粉);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        /* 现代画廊 - 瀑布流 */
+        .现代画廊 {
+            padding: 120px 0;
+            background: var(--纯白);
+            border-radius: 40px; /* 添加圆角 */
+            margin: 60px 0;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3); /* 添加阴影 */
+        }
+
+        .画廊标题 {
+            font-size: clamp(1.8rem, 3vw, 3rem);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 80px;
+            color: var(--深黑);
+            letter-spacing: 0.05em;
+        }
+
+        .瀑布布局 {
+            columns: 3;
+            column-gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .瀑布项目 {
+            break-inside: avoid;
+            margin-bottom: 30px;
+            border-radius: 20px; /* 增加圆角 */
+            overflow: hidden;
+            position: relative;
+            transition: all 0.6s ease;
+            box-shadow: 0 15px 30px rgba(255, 182, 193, 0.3); /* 更粉嫩的阴影 */
+        }
+
+        .瀑布项目:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(255, 182, 193, 0.5); /* 悬停时更明显的阴影 */
+        }
+
+        .瀑布图片 {
+            width: 100%;
+            height: 300px; /* 统一图片高度 */
+            object-fit: cover; /* 保持图片比例并填充容器 */
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .瀑布项目:hover .瀑布图片 {
+            transform: scale(1.05);
+        }
+
+        .图片覆盖层 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(90, 62, 76, 0.8));
+            color: var(--纯白);
+            padding: 40px 25px 25px;
+            transform: translateY(100%);
+            transition: transform 0.6s ease;
+            border-radius: 0 0 20px 20px; /* 底部圆角 */
+        }
+
+        .瀑布项目:hover .图片覆盖层 {
+            transform: translateY(0);
+        }
+
+        .覆盖标题 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .覆盖日期 {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* 现代音乐控件 */
+        .现代音乐 {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: var(--玫瑰金);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(255, 172, 199, 0.5); /* 更粉嫩的阴影 */
+        }
+
+        .现代音乐:hover {
+            transform: scale(1.1);
+            background: var(--浅紫);
+            box-shadow: 0 15px 40px rgba(225, 190, 231, 0.5); /* 悬停时紫色阴影 */
+        }
+
+        .现代音乐 i {
+            color: var(--纯白);
+            font-size: 1.2rem;
+        }
+
+        /* 现代页脚 */
+        .现代页脚 {
+            text-align: center;
+            padding: 80px 40px 60px;
+            margin-top: 120px;
+            background: linear-gradient(135deg, rgba(255, 172, 199, 0.1) 0%, rgba(187, 222, 251, 0.05) 100%);
+            color: var(--深黑);
+            border-radius: 40px 40px 0 0; /* 顶部圆角 */
+            box-shadow: 0 -10px 30px rgba(255, 182, 193, 0.2); /* 顶部阴影 */
+        }
+
+        .页脚文字 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--深粉);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .页脚日期 {
+            font-size: 1rem;
+            opacity: 0.7;
+            letter-spacing: 0.1em;
+        }
+
+        /* 弹窗提示样式 */
+        .音乐提示弹窗 {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px 40px;
+            border-radius: 25px; /* 增加圆角 */
+            box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4); /* 粉色阴影 */
+            text-align: center;
+            z-index: 10000;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            max-width: 350px;
+            width: 90%;
+        }
+
+        .音乐提示弹窗.显示 {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .音乐提示弹窗 h3 {
+            color: var(--深黑);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .音乐提示弹窗 p {
+            color: var(--深粉);
+            font-size: 1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .音乐提示弹窗 .提示按钮 {
+            background: var(--玫瑰金);
+            color: var(--纯白);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 172, 199, 0.4); /* 按钮阴影 */
+        }
+
+        .音乐提示弹窗 .提示按钮:hover {
+            background: var(--浅紫);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(225, 190, 231, 0.5); /* 悬停时阴影 */
+        }
+
+        .音乐提示遮罩 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .音乐提示遮罩.显示 {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 响应式 */
+        @media (max-width: 1024px) { .瀑布布局 { columns: 2; } }
+        @media (max-width: 768px) { 
+            .容器 { padding: 0 25px; }
+            .瀑布布局 { columns: 1; }
+            .玻璃卡片组 { grid-template-columns: repeat(2, 1fr); }
+            .恋人姓名::before,
+            .恋人姓名::after { display: none; }
+            
+            /* 移动端圆角调整 */
+            .简约首页, .现代计数, .现代画廊, .现代页脚 {
+                border-radius: 20px;
+                margin: 30px 0;
+            }
+            
+            /* 移动端图片高度调整 */
+            .瀑布图片 {
+                height: 250px; /* 移动端稍小的高度 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="容器">
+        <!-- 极简头部 -->
+        <section class="简约首页">
+            <h1 class="标题">光影之间</h1>
+            <div class="恋人姓名">李子扬 ❤️ 高菲</div>
+            <div class="优雅日期">
+                二零二五年十一月三十日 · 从此岁月皆成诗
+            </div>
+        </section>
+
+        <!-- 玻璃计数器 -->
+        <section class="现代计数">
+            <h2 class="计数标题">我们的美好时光</h2>
+            <div class="玻璃卡片组">
+                <div class="玻璃卡片">
+                    <div class="玻璃数字" id="现代天数">0</div>
+                    <div class="玻璃标签">相伴之日</div>
+                </div>
+                <div class="玻璃卡片">
+                    <div class="玻璃数字" id="现代小时">00</div>
+                    <div class="玻璃标签">相守之时</div>
+                </div>
+                <div class="玻璃卡片">
+                    <div class="玻璃数字" id="现代分钟">00</div>
+                    <div class="玻璃标签">温馨之刻</div>
+                </div>
+                <div class="玻璃卡片">
+                    <div class="玻璃数字" id="现代秒钟">00</div>
+                    <div class="玻璃标签">甜蜜之秒</div>
+                </div>
+            </div>
+        </section>
+
+<!-- 现代画廊 -->
+<section class="现代画廊">
+    <h2 class="画廊标题">珍藏的美好瞬间</h2>
+    <div class="瀑布布局">
+        <div class="瀑布项目">
+            <img src="images/photo1.jpg" alt="红妆凝思" class="瀑布图片">
+            <div class="图片覆盖层">
+                <div class="覆盖标题">红妆凝思</div>
+                <div class="覆盖日期"></div>
+            </div>
+        </div>
+        <div class="瀑布项目">
+            <img src="images/photo2.jpg" alt="喜结良缘" class="瀑布图片">
+            <div class="图片覆盖层">
+                <div class="覆盖标题">喜结良缘</div>
+                <div class="覆盖日期"></div>
+            </div>
+        </div>
+        <div class="瀑布项目">
+            <img src="images/photo3.jpg" alt="红袍侧影" class="瀑布图片">
+            <div class="图片覆盖层">
+                <div class="覆盖标题">红袍侧影</div>
+                <div class="覆盖日期"></div>
+            </div>
+        </div>
+        <div class="瀑布项目">
+            <img src="images/photo4.jpg" alt="夜行双喜" class="瀑布图片">
+            <div class="图片覆盖层">
+                <div class="覆盖标题">夜行双喜</div>
+                <div class="覆盖日期"></div>
+            </div>
+        </div>
+        <div class="瀑布项目">
+            <img src="images/photo5.jpg" alt="花雨满堂" class="瀑布图片">
+            <div class="图片覆盖层">
+                <div class="覆盖标题">花雨满堂</div>
+                <div class="覆盖日期"></div>
+            </div>
+        </div>
+        <div class="瀑布项目">
+            <img src="images/photo6.jpg" alt="囍卧同心" class="瀑布图片">
+            <div class="图片覆盖层">
+                <div class="覆盖标题">囍卧同心</div>
+                <div class="覆盖日期"></div>
+            </div>
+        </div>
+        <div class="瀑布项目">
+            <img src="images/photo7.jpg" alt="红车揽爱" class="瀑布图片">
+            <div class="图片覆盖层">
+                <div class="覆盖标题">红车揽爱</div>
+                <div class="覆盖日期"></div>
+            </div>
+        </div>
+        <div class="瀑布项目">
+            <img src="images/photo8.jpg" alt="白纱献礼" class="瀑布图片">
+            <div class="图片覆盖层">
+                <div class="覆盖标题">白纱献礼</div>
+                <div class="覆盖日期"></div>
+            </div>
+        </div>
+        <div class="瀑布项目">
+            <img src="images/photo9.jpg" alt="执手良辰" class="瀑布图片">
+            <div class="图片覆盖层">
+                <div class="覆盖标题">执手良辰</div>
+                <div class="覆盖日期"></div>
+            </div>
+        </div>
+    </div>
+</section>
+    </div>
+
+    <!-- 音乐控制按钮 -->
+    <div class="现代音乐" id="现代音乐按钮">
+        <i class="fas fa-play"></i>
+    </div>
+
+    <!-- 背景音乐 -->
+    <audio id="背景音乐" loop>
+        <source src="http://music.163.com/song/media/outer/url?id=2721732616.mp3" type="audio/mpeg">
+        <!-- 如果可能，请替换为您自己的音频文件路径，如：src="music/background.mp3" -->
+    </audio>
+
+    <!-- 音乐提示弹窗 -->
+    <div class="音乐提示遮罩" id="音乐提示遮罩"></div>
+    <div class="音乐提示弹窗" id="音乐提示弹窗">
+        <h3>🎵🎵🎵🎵 浪漫音乐已准备就绪</h3>
+        <p>为了给您带来更美好的体验，我们准备了浪漫的背景音乐。<br>
+        请点击下方按钮或右下角的音乐图标开始播放~</p>
+        <button class="提示按钮" onclick="启动音乐播放()">开始播放音乐</button>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="现代页脚">
+        <div class="页脚文字">相伴之处，便是心之所安</div>
+        <div class="页脚日期">自二零二五年十一月三十日起 · 走向无数个美好明日</div>
+    </footer>
+
+    <script>
+        const 婚礼日期 = new Date('2025-11-30T00:00:00');
+        
+        // 音乐相关变量
+        const 背景音乐 = document.getElementById('背景音乐');
+        const 现代音乐按钮 = document.getElementById('现代音乐按钮');
+        let 正在播放 = false;
+
+        // 弹窗相关元素
+        const 音乐提示遮罩 = document.getElementById('音乐提示遮罩');
+        const 音乐提示弹窗 = document.getElementById('音乐提示弹窗');
+
+        // ===== 自动播放逻辑 + 弹窗提示 =====
+        function 启动音乐播放() {
+            // 尝试播放音乐
+            背景音乐.play().then(function() {
+                正在播放 = true;
+                现代音乐按钮.innerHTML = '<i class="fas fa-pause"></i>';
+                隐藏音乐提示(); // 播放成功，隐藏提示
+            }).catch(function(error) {
+                console.log('播放失败，用户可能需要手动点击音乐按钮', error);
+                // 即使失败也隐藏提示，让用户手动操作
+                隐藏音乐提示();
+            });
+        }
+
+        function 显示音乐提示() {
+            音乐提示遮罩.classList.add('显示');
+            音乐提示弹窗.classList.add('显示');
+        }
+
+        function 隐藏音乐提示() {
+            音乐提示遮罩.classList.remove('显示');
+            音乐提示弹窗.classList.remove('显示');
+        }
+
+        // 页面加载后1秒显示提示弹窗，3秒后自动隐藏
+        window.addEventListener('load', function() {
+            // 1秒后显示提示
+            setTimeout(function() {
+                显示音乐提示();
+                // 3秒后自动隐藏提示（如果用户没点）
+                setTimeout(隐藏音乐提示, 3000);
+            }, 1000);
+
+            // 尝试自动播放（可能会被浏览器阻止）
+            背景音乐.play().then(function() {
+                正在播放 = true;
+                现代音乐按钮.innerHTML = '<i class="fas fa-pause"></i>';
+                隐藏音乐提示(); // 如果用户还没关提示，也隐藏
+            }).catch(function(error) {
+                console.log('页面加载时自动播放被阻止，正常流程', error);
+                // 自动播放失败是预期的，让用户手动操作
+            });
+        });
+
+        // ===== 音乐按钮点击事件 =====
+        现代音乐按钮.addEventListener('click', function() {
+            if (正在播放) {
+                背景音乐.pause();
+                现代音乐按钮.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                背景音乐.play().then(function() {
+                    正在播放 = true;
+                    现代音乐按钮.innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(function(error) {
+                    console.log('音乐按钮播放失败', error);
+                });
+            }
+            正在播放 = !正在播放;
+        });
+
+        // ===== 倒计时功能 =====
+        function 更新现代计数() {
+            const 当前时间 = new Date();
+            const 时间差 = 当前时间 - 婚礼日期;
+            
+            const 天数 = Math.floor(时间差 / (1000 * 60 * 60 * 24));
+            const 小时 = Math.floor((时间差 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const 分钟 = Math.floor((时间差 % (1000 * 60 * 60)) / (1000 * 60));
+            const 秒钟 = Math.floor((时间差 % (1000 * 60)) / 1000);
+            
+            document.getElementById('现代天数').textContent = 天数;
+            document.getElementById('现代小时').textContent = 小时.toString().padStart(2, '0');
+            document.getElementById('现代分钟').textContent = 分钟.toString().padStart(2, '0');
+            document.getElementById('现代秒钟').textContent = 秒钟.toString().padStart(2, '0');
+        }
+        
+        // 页面加载后立即更新一次，然后每秒更新
+        更新现代计数();
+        setInterval(更新现代计数, 1000);
+    </script>
+</body>
+</html>
